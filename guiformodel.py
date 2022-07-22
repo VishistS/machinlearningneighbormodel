@@ -19,7 +19,6 @@ def opengui():
               [sg.OptionMenu([m.safetyunique[0], m.safetyunique[1], m.safetyunique[2]], key='SAFETY')],
               [sg.Button('Submit'), sg.Button('Information (READ ME)'), sg.Exit()]]
 
-
     window = sg.Window('Car Evaluation', layout)
 
     while True:
@@ -27,14 +26,15 @@ def opengui():
         if event == sg.WIN_CLOSED or event == 'Exit':
             break
         if event == "Information (READ ME)":
-            sg.popup("WIP")
-        try:
-            inputgathered = m.np.array([[int(values["BUY"]), int(values["MAINT"]), int(values["DOOR"]), int(values["PERSON"]), int(values["LUG"]), int(values["SAFETY"])]])
-            userprediction = m.model.predict(inputgathered)
-            userprediction = int(userprediction)
-            sg.popup(f"Your car would be classified as {m.names[userprediction]}")
-        except:
-            sg.popup("Invalid input. Please choose a value for each input.")
+            sg.popup("will put smth cool here, but check out my github lol https://github.com/VishistS")
+        else:
+            try:
+                inputgathered = m.np.array([[int(values["BUY"]), int(values["MAINT"]), int(values["DOOR"]), int(values["PERSON"]), int(values["LUG"]), int(values["SAFETY"])]])
+                userprediction = m.model.predict(inputgathered)
+                userprediction = int(userprediction)
+                sg.popup(f"Your car would be classified as {m.names[userprediction]}.")
+            except:
+                sg.popup("Invalid input. Please choose a value for each input.")
 
     window.close()
 

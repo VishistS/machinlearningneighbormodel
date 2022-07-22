@@ -52,7 +52,4 @@ lugbootunique.sort()
 safetyunique = list(dict.fromkeys((safety)))
 safetyunique.sort()
 
-for x in range(len(predicted)):
-    print("Predicted: ", names[predicted[x]], "Data: ", x_test[x], "Actual: ", names[y_test[x]])
-
 gm.opengui()
