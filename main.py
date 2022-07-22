@@ -4,7 +4,7 @@ from sklearn.neighbors import KNeighborsClassifier
 import pandas as pd
 import numpy as np
 from sklearn import linear_model, preprocessing
-
+import guiformodel as gm
 data = pd.read_csv("car.data.txt")
 
 #converts into integer values
@@ -37,7 +37,22 @@ names = ["unacc", "acc", "good", "vgood"]
 
 predicted = model.predict(x_test)
 
-names = ["unacc", "acc", "good", "vgood"]
+
+#storing variables for gui stuff
+buyingunique = (list(dict.fromkeys(buying)))
+buyingunique.sort()
+maintunique = list(dict.fromkeys((maint)))
+maintunique.sort()
+doorsunique = list(dict.fromkeys((doors)))
+doorsunique.sort()
+personsunique = list(dict.fromkeys((persons)))
+personsunique.sort()
+lugbootunique = list(dict.fromkeys((lug_boot)))
+lugbootunique.sort()
+safetyunique = list(dict.fromkeys((safety)))
+safetyunique.sort()
 
 for x in range(len(predicted)):
     print("Predicted: ", names[predicted[x]], "Data: ", x_test[x], "Actual: ", names[y_test[x]])
+
+gm.opengui()

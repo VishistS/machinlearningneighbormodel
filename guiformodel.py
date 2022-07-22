@@ -1,41 +1,44 @@
 import PySimpleGUI as sg
-from sklearn import linear_model, preprocessing
-
-sg.theme('Dark Blue 1')
-
-layout = [[sg.Text('Buying Cost')],
-          [sg.OptionMenu(['Very High', 'High', 'Medium', 'Low'], s=(40, 1))],
-          [sg.Text('Maintenance')],
-          [sg.OptionMenu(["Very High", "High", "Medium", "Low"], s=(40, 1))],
-          [sg.Text('Doors')],
-          [sg.OptionMenu(['2', '3', '4', 'More'], s=(40, 1))],
-          [sg.Text('Persons')],
-          [sg.OptionMenu(['2', '4', 'More'], s=(40, 1))],
-          [sg.Text('Lug Boot')],
-          [sg.OptionMenu(['Small', 'Medium', 'Big'], s=(40, 1))],
-          [sg.Text('Safety')],
-          [sg.OptionMenu(['Low', 'Medium', 'High'], s=(40, 1))],
-          [sg.Button('Submit'), sg.Exit()]]
-
-window = sg.Window('Car Evaluation', layout, no_titlebar=True, grab_anywhere=True)
-
-while True:
-    event, values = window.read()
-    if event == sg.WIN_CLOSED or event == 'Exit':
-        break
-    print (list(values))
+import main as m
 
 
-window.close()
+def opengui():
+    sg.theme('Dark Blue 1')
+
+    layout = [[sg.Text('Buying Cost')],
+              [sg.OptionMenu([m.buyingunique[0], m.buyingunique[1], m.buyingunique[2], m.buyingunique[3]], key='BUY')],
+              [sg.Text('Maintenance')],
+              [sg.OptionMenu([m.maintunique[0], m.maintunique[1], m.maintunique[2], m.maintunique[3]], key='MAINT')],
+              [sg.Text('Doors')],
+              [sg.OptionMenu([m.doorsunique[0], m.doorsunique[1], m.doorsunique[2], m.doorsunique[3]], key='DOOR')],
+              [sg.Text('Persons')],
+              [sg.OptionMenu([m.personsunique[0], m.doorsunique[1], m.doorsunique[2]], key='PERSON')],
+              [sg.Text('Trunk Storage')],
+              [sg.OptionMenu([m.lugbootunique[0], m.lugbootunique[1], m.lugbootunique[2]], key='LUG')],
+              [sg.Text('Safety')],
+              [sg.OptionMenu([m.safetyunique[0], m.safetyunique[1], m.safetyunique[2]], key='SAFETY')],
+              [sg.Button('Submit'), sg.Button('Information (READ ME)'), sg.Exit()]]
 
 
-'''
-firstinput = input("Hello, input your preferences.")
-gatheredinp = firstinput.split(", ")
-listofinput =  np.array([[int(gatheredinp[0]), int(gatheredinp[1]), int(gatheredinp[2]), int(gatheredinp[3]), int(gatheredinp[4]), int(gatheredinp[5])]])
-predicted = model.predict(listofinput)
-print(predicted)
-'''
+    window = sg.Window('Car Evaluation', layout)
+
+    while True:
+        event, values = window.read()
+        if event == sg.WIN_CLOSED or event == 'Exit':
+            break
+        if event == "Information (READ ME)":
+            sg.popup("WIP")
+        try:
+            inputgathered = m.np.array([[int(values["BUY"]), int(values["MAINT"]), int(values["DOOR"]), int(values["PERSON"]), int(values["LUG"]), int(values["SAFETY"])]])
+            userprediction = m.model.predict(inputgathered)
+            userprediction = int(userprediction)
+            sg.popup(f"Your car would be classified as {m.names[userprediction]}")
+        except:
+            sg.popup("Invalid input. Please choose a value for each input.")
+
+    window.close()
+
+
 
 '''
 firstinput = input("Hello, input your preferences.")
